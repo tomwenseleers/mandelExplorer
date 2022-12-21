@@ -55,6 +55,10 @@ Real-time zooms using fast nativeRaster graphics (click to watch video) (functio
 
 [![Fast real-time zooms](./inst/png/feliz_navidad.png?raw=true)](https://vimeo.com/783419550 "Fast real-time zooms - click to watch!")
 
+Fixed view at given magnification, location & resolution (here call `mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), res=1920L, pal=2)`) :
+
+![Mandelbrot](./inst/png/mandelbrot.png?raw=true)
+
 
 ## Bugs
 
