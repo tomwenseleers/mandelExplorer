@@ -31,7 +31,7 @@ mandelbrot(xlims=c(-0.74877,-0.74872),
            pal=2)
 ```
 
-For a real-time animated zoom to a particular region (using fast nativeRaster graphics) [as it's Christmas a Merry Christmas png is shown at the end together with a Feliz Navidad song at the end, you can disable these by setting png=NA and wav=NA]:
+For a real-time animated zoom to a particular region (using fast nativeRaster graphics) [as it's Christmas a Merry Christmas png is shown at the end & a Feliz Navidad song is played, you can disable these by setting ´png=NA´ and ´wav=NA´]:
 
 ```r
 zoom(xlims=c(-0.766032578179731,-0.766032578179529), 
