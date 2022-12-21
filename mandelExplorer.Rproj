@@ -1,0 +1,19 @@
+Version: 1.0
+
+RestoreWorkspace: Default
+SaveWorkspace: Default
+AlwaysSaveHistory: Default
+
+EnableCodeIndexing: Yes
+UseSpacesForTab: Yes
+NumSpacesForTab: 2
+Encoding: ISO8859-1
+
+RnwWeave: Sweave
+LaTeX: pdfLaTeX
+
+AutoAppendNewline: Yes
+
+BuildType: Package
+PackageUseDevtools: Yes
+PackageInstallArgs: --with-keep.source --byte-compile --configure-args="CFLAGS=-march=native -mtune=native CXXFLAGS=-march=native -mtune=native"

@@ -1,0 +1,7 @@
+useDynLib(mandelExplorer, .registration=TRUE)
+import(shiny)
+import(grid)
+importFrom(RColorBrewer, brewer.pal)
+importFrom(grDevices, colorRampPalette)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
