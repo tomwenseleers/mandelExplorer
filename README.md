@@ -46,11 +46,11 @@ zoom(xlims=c(-0.766032578179731,-0.766032578179529),
 
 ### v1.1
 
-Interactive Shiny Mandelbrot Explorer app (function mandel()) :
+Interactive Shiny Mandelbrot Explorer app (function `mandel()`) :
 
 ![Mandelbrot Shiny app](./inst/png/shiny_app.png?raw=true) 
 
-Real-time zooms using fast nativeRaster graphics (click to watch video) :
+Real-time zooms using fast nativeRaster graphics (click to watch video) (function `zoom()`) :
 
 [![Fast real-time zooms](./inst/png/feliz_navidad.png?raw=true)](https://vimeo.com/783419550 "Fast real-time zooms - click to watch!")
 
