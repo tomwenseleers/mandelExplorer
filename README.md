@@ -14,6 +14,7 @@ To run within an R session :
 
 ```r
 install.packages("remotes")
+library(remotes)
 remotes::install_github("tomwenseleers/mandelExplorer")
 library(mandelExplorer)
 ```
