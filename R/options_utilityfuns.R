@@ -94,3 +94,12 @@ adgamma = function (m, nb_iter, subsamp=10, intens=0.4) {
   adgamma = -log(1/intens)/log(median(subsm_notinM)) # ensures that median of 0-1 scaled values will become = intens
   return(adgamma)
 }
+
+# function to convert matrix to colour raster
+mat2rast = function(mat, col) {
+  idx = findInterval(mat, seq(0, 1, length.out = length(col)))
+  colors = col[idx]
+  rastmat = t(matrix(colors, ncol = ncol(mat), nrow = nrow(mat), byrow = TRUE))
+  class(rastmat) = "raster"
+  return(rastmat)
+}

@@ -10,7 +10,7 @@ The actual Mandelbrot fractal is calculated using optimized Rcpp code that uses 
 
 ## Installation
 
-To run within an R session with:
+To run within an R session :
 
 ```r
 install.packages("remotes")
