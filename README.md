@@ -47,7 +47,7 @@ zoom(xlims=c(-0.766032578179731,-0.766032578179529),
 ### v1.1
 ![Mandelbrot Shiny app](./inst/png/shiny_app.png?raw=true) 
 
-[![Fast real-time zooms](http://i.imgur.com/7YTMFQp.png)](https://vimeo.com/783419550 "Fast real-time zooms - click to watch!")
+[![Fast real-time zooms](./inst/png/feliz_navidad.png?raw=true)](https://vimeo.com/783419550 "Fast real-time zooms - click to watch!")
 
 
 ## Bugs
