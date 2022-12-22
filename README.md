@@ -42,6 +42,10 @@ zoom(xlims=c(-0.766032578179731,-0.766032578179529),
     res=640L)
 ```
 
+Real-time animated zoom to one of 16 randomly selected pre-defined locations, using given palette:
+```r
+r=sample.int(16,1);zoom(xlims=x[[r]], ylims=y[[r]], pal=1);print(r)
+```
 
 ## Screenshots
 

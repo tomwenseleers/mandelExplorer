@@ -30,6 +30,8 @@ mandelbrot = function(xlims=c(-0.74877,-0.74872),
 
 # example
 # mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), pal=2)
+# random mandelbrot from 1 of 16 predefined locations with random palette
+# r=sample.int(16,1);mandelbrot(xlims=x[[r]], ylims=y[[r]], pal=sample.int(4,1))
 
 
 # to show animation zooming to particular region
@@ -128,6 +130,8 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
   
 # example
 # zoom()
+# random zoom to 1 of 16 predefined locations & use given palette
+# r=sample.int(16,1);zoom(xlims=x[[r]], ylims=y[[r]], pal=1)
   
   
   
