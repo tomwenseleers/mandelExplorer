@@ -60,6 +60,7 @@ Interactive Shiny Mandelbrot Explorer app :
 
 Real-time zooms using fast nativeRaster graphics (click to watch video) :
 ```r
+zoom() # with default options, equivalent to
 r=1;zoom(xlims=x[[r]], ylims=y[[r]], pal=1) # change r between 1 and 16 to select one of 16 pre-defined target coordinates and use palette pal with nrs between 1 and 4
 # some other examples of zooms to a selection of specific pre-defined targets, with particular palettes & gamma values
 r=2;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # mandelbrot with some spirals, with icey palette
