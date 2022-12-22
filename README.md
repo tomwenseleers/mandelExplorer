@@ -4,9 +4,9 @@ R package allowing some exploration of the Mandelbrot fractal set using
 
 1.  A Shiny app for exploring the Mandelbrot set interactively (function `mandel()`)
 
-2.  A function to create particular views at given resolution (function `zoom()`)
+2.  A function to create particular views at given resolution (function `mandelbrot()`)
 
-3.  A function to create animated real-time zooms to a given location (function `mandelbrot()`)
+3.  A function to create animated real-time zooms to a given location (function `zoom()`)
 
 The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses [OpenMP multithreading and SIMD vectorized operations](https://stackoverflow.com/questions/48069990/multithreaded-simd-vectorized-mandelbrot-in-r-using-rcpp-openmp) (SIMD optimizations were provided by [Z boson](https://stackoverflow.com/users/2542702/z-boson)). The animated real-time zooms make use of the `nativeRaster` format of the R package `nara` (<https://github.com/coolbutuseless/nara>) to achieve decent framerates. Hence, this package forms a good demonstration to illustrate the use of OpenMP in Rcpp to speed up code and of fast `nativeRaster` graphics to achieve real-time animation at high framerates.
 
@@ -36,7 +36,7 @@ mandelbrot(xlims=c(-0.74877,-0.74872),
            pal=2)
 ```
 
-For a real-time animated zoom to a particular region (using fast nativeRaster graphics) [as it's Christmas a Merry Christmas png is shown at the end & a Feliz Navidad song is played, you can disable these by setting ´png=NA´ and ´wav=NA´]:
+For a real-time animated zoom to a particular region (using fast nativeRaster graphics) [as it's Christmas a Merry Christmas png is shown at the end & a Feliz Navidad song is played, you can disable these by setting Â´png=NAÂ´ and Â´wav=NAÂ´]:
 
 ``` r
 zoom(xlims=c(-0.766032578179731,-0.766032578179529), 
