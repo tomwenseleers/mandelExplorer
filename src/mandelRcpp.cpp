@@ -111,7 +111,7 @@ IntegerVector mandelRcpp2(double x_min, double x_max, double y_min,  double y_ma
 
 
 //* smooth version with large escape horizon *//
-//* currently still crashes - not sure what I did wrong *//
+//* currently still a bit buggy *//
 // [[Rcpp::export]]
 arma::mat mandelsmoothRcpp(const double x_min, const double x_max, const double y_min, const double y_max,
                      const int res_x, const int res_y, const int nb_iter) {
@@ -140,3 +140,69 @@ arma::mat mandelsmoothRcpp(const double x_min, const double x_max, const double 
   }
   return ret;
 }
+
+
+
+//* smooth version with large escape horizon - this was ChatGPT's version *//
+//* currently still crashes *//
+
+// [[Rcpp::export]]
+arma::mat mandelsmoothRcpp2(const double x_min, const double x_max, const double y_min, const double y_max,
+                     const int res_x, const int res_y, const int nb_iter) {
+  arma::mat ret(res_x, res_y);
+  const double x_step = (x_max - x_min) / res_x;
+  const double y_step = (y_max - y_min) / res_y;
+  int r, c;
+  double max_escape_radius = 0.0;
+  
+  // Calculate the maximum escape radius
+  for (r = 0; r < res_y; r++) {
+    for (c = 0; c < res_x; c++) {
+      double zx = 0.0, zy = 0.0, new_zx;
+      double cx = x_min + c * x_step, cy = y_min + r * y_step;
+      int n = 0;
+      for (n = 0; (zx * zx + zy * zy < 4.0) && (n < nb_iter); n++) {
+        new_zx = zx * zx - zy * zy + cx;
+        zy = 2.0 * zx * zy + cy;
+        zx = new_zx;
+      }
+      if (n == nb_iter) {
+        continue;
+      }
+      double escape_radius = sqrt(zx * zx + zy * zy);
+      if (escape_radius > max_escape_radius) {
+        max_escape_radius = escape_radius;
+      }
+    }
+  }
+  
+  // Calculate the smooth escape horizon value for each point
+#pragma omp parallel for shared(ret) schedule(dynamic)
+  for (r = 0; r < res_y; r++) {
+    for (c = 0; c < res_x; c++) {
+      double zx = 0.0, zy = 0.0, new_zx;
+      double cx = x_min + c * x_step, cy = y_min + r * y_step;
+      int n = 0;
+      int n0 = 0;
+      double q = (cx - 0.25) * (cx - 0.25) + cy * cy;
+      if ((q * (q + (cx - 0.25))) < (0.25 * cy * cy)) {
+        n0 = nb_iter; //* cardioid test *//
+      }
+      for (n = n0; (zx * zx + zy * zy < 4.0) && (n < nb_iter); n++) {
+        new_zx = zx * zx - zy * zy + cx;
+        zy = 2.0 * zx * zy + cy;
+        zx = new_zx;
+      }
+      if (n == nb_iter) {
+        continue;
+      }
+      double escape_radius = sqrt(zx * zx + zy * zy);
+      double smooth_escape_horizon = log(escape_radius) / log(max_escape_radius) + 1;
+      ret(c, r) = smooth_escape_horizon;
+    }
+  }
+  return ret;
+}
+
+        
+        

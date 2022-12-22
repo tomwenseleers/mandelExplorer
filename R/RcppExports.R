@@ -13,3 +13,7 @@ mandelsmoothRcpp <- function(x_min, x_max, y_min, y_max, res_x, res_y, nb_iter) 
     .Call(`_mandelExplorer_mandelsmoothRcpp`, x_min, x_max, y_min, y_max, res_x, res_y, nb_iter)
 }
 
+mandelsmoothRcpp2 <- function(x_min, x_max, y_min, y_max, res_x, res_y, nb_iter) {
+    .Call(`_mandelExplorer_mandelsmoothRcpp2`, x_min, x_max, y_min, y_max, res_x, res_y, nb_iter)
+}
+
