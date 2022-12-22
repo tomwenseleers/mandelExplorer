@@ -5,7 +5,7 @@ R package allowing some exploration of the Mandelbrot fractal set using
 2. A function to create particular views at given resolution (function `zoom()`)
 3. A function to create animated real-time zooms to a given location (function `mandelbrot()`)
 
-The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses OpenMP multithreading and SIMD vectorized operations. The animated real-time zooms make use of the nativeRaster format of the R package [`nara`] (https://github.com/coolbutuseless/nara) to achieve decent framerates.
+The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses OpenMP multithreading and SIMD vectorized operations. The animated real-time zooms make use of the nativeRaster format of the R package [`nara`] (https://github.com/coolbutuseless/nara) to achieve decent framerates. So this package forms a good demonstration to illustrate the use of OpenMP in Rcpp to speed up code and of fast nativeRaster graphics to achieve real-time animation at high framerates.
 
 
 ## Installation
@@ -47,20 +47,30 @@ Real-time animated zoom to one of 16 randomly selected pre-defined locations, us
 r=sample.int(16,1);zoom(xlims=x[[r]], ylims=y[[r]], pal=1);print(r)
 ```
 
-## Screenshots
+## Demo
 
 ### v1.1
 
-Interactive Shiny Mandelbrot Explorer app (function `mandel()`) :
-
+Interactive Shiny Mandelbrot Explorer app :
+```r
+`mandel()`
+```
 ![Mandelbrot Shiny app](./inst/png/shiny_app.png?raw=true) 
 
-Real-time zooms using fast nativeRaster graphics (click to watch video) (function `zoom()`) :
 
+Real-time zooms using fast nativeRaster graphics (click to watch video) :
+```r
+r=1;zoom(xlims=x[[r]], ylims=y[[r]], pal=1) # change r between 1 and 16 to select one of 16 pre-defined target coordinates and use palette pal with nrs between 1 and 4
+```
 [![Fast real-time zooms](./inst/png/feliz_navidad.png?raw=true)](https://vimeo.com/783419550 "Fast real-time zooms - click to watch!")
 
-Fixed view at given magnification, location & resolution (here call `mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), res=1920L, pal=2)`) :
 
+Fixed view at given magnification, location & resolution :
+```r
+mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), res=1920L, pal=2)
+# equivalent to (change r to number between 1 and 16 to get different views and choose palette pal between 1 and 4)
+r=2;mandelbrot(xlims=x[[r]],ylims=y[[r]], res=1920L, pal=2)
+```
 ![Mandelbrot](./inst/png/mandelbrot.png?raw=true)
 
 
