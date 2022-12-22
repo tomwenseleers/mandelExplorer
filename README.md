@@ -119,4 +119,4 @@ r=16;mandelbrot(xlims=x[[r]], ylims=y[[r]], res=1920L, pal=1, gamma=1/20) # othe
 
 ## Bugs
 
--   Zooming is eventually limited by numerical accuracy, so only relatively shallow zooms are supported at the moment ([deep zooms](https://www.youtube.com/watch?v=pCpLWbHVNhk) would require calculating the Mandelbrot set using perturbation methods, see [article here](http://www.science.eclipse.co.uk/sft_maths.pdf) and [post with some corrections of types in that article here](https://math.stackexchange.com/questions/939270/perturbation-of-mandelbrot-set-fractal)).
+-   Zooming is eventually limited by numerical accuracy, so only relatively shallow zooms are supported at the moment ([deep zooms](https://www.youtube.com/watch?v=pCpLWbHVNhk) would require calculating the Mandelbrot set using perturbation methods, see [article here](http://www.science.eclipse.co.uk/sft_maths.pdf) and [post with some corrections of typos in that article here](https://math.stackexchange.com/questions/939270/perturbation-of-mandelbrot-set-fractal)).
