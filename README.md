@@ -65,11 +65,29 @@ r=1;zoom(xlims=x[[r]], ylims=y[[r]], pal=1) # change r between 1 and 16 to selec
 [![Fast real-time zooms](./inst/png/feliz_navidad.png?raw=true)](https://vimeo.com/783419550 "Fast real-time zooms - click to watch!")
 
 
-Fixed view at given magnification, location & resolution :
+Fixed view at given magnification, location & resolution (here showing specific location & a selection of pre-defined target zooms) :
 ```r
 mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), res=1920L, pal=2)
 # equivalent to (change r to number between 1 and 16 to get different views and choose palette pal between 1 and 4)
 r=2;mandelbrot(xlims=x[[r]],ylims=y[[r]], res=1920L, pal=2)
+# with other targets, palette and gamma value
+r=2;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # mandelbrot with some spirals, with icey palette
+r=3;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # snowflakey example
+r=4;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # snowflakey example
+r=5;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # snowflakey example
+r=6;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # snowflakey example
+r=7;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # snowflakey example
+r=8;zoom(xlims=x[[r]], ylims=y[[r]], pal=3, gamma=0.1) # colourful example
+r=9;zoom(xlims=x[[r]], ylims=y[[r]], pal=4, gamma=1/20) # other palette still
+r=10;zoom(xlims=x[[r]], ylims=y[[r]], pal=4, gamma=1/20) # other palette still
+r=11;zoom(xlims=x[[r]], ylims=y[[r]], pal=4, gamma=1/20) # other palette still
+r=12;zoom(xlims=x[[r]], ylims=y[[r]], pal=1, gamma=1/10) # other cool one with reddish Christmas palette
+r=12;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/15) # other cool one with reddish Christmas palette
+r=12;zoom(xlims=x[[r]], ylims=y[[r]], pal=2, gamma=1/20) # same with snowflakey palette
+r=13;zoom(xlims=x[[r]], ylims=y[[r]], pal=3) # reminiscent of spider web or worm hole
+r=14;zoom(xlims=x[[r]], ylims=y[[r]], pal=1, gamma=1/20) # other cool one with reddish Christmas palette
+r=15;zoom(xlims=x[[r]], ylims=y[[r]], pal=1, gamma=1/20) # other cool one with reddish Christmas palette
+r=16;zoom(xlims=x[[r]], ylims=y[[r]], pal=1, gamma=1/20) # other cool one with reddish Christmas palette
 ```
 ![Mandelbrot](./inst/png/mandelbrot.png?raw=true)
 
