@@ -1,6 +1,12 @@
 # mandelExplorer
 
-R package allowing some exploration of the Mandelbrot fractal set using 1. A Shiny app for exploring the Mandelbrot set interactively (function `mandel()`) 2. A function to create particular views at given resolution (function `zoom()`) 3. A function to create animated real-time zooms to a given location (function `mandelbrot()`)
+R package allowing some exploration of the Mandelbrot fractal set using
+
+1.  A Shiny app for exploring the Mandelbrot set interactively (function `mandel()`)
+
+2.  A function to create particular views at given resolution (function `zoom()`)
+
+3.  A function to create animated real-time zooms to a given location (function `mandelbrot()`)
 
 The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses [OpenMP multithreading and SIMD vectorized operations](https://stackoverflow.com/questions/48069990/multithreaded-simd-vectorized-mandelbrot-in-r-using-rcpp-openmp) (SIMD optimizations were provided by [Z boson](https://stackoverflow.com/users/2542702/z-boson)). The animated real-time zooms make use of the `nativeRaster` format of the R package `nara` (<https://github.com/coolbutuseless/nara>) to achieve decent framerates. Hence, this package forms a good demonstration to illustrate the use of OpenMP in Rcpp to speed up code and of fast `nativeRaster` graphics to achieve real-time animation at high framerates.
 
@@ -113,4 +119,4 @@ r=16;mandelbrot(xlims=x[[r]], ylims=y[[r]], res=1920L, pal=1, gamma=1/20) # othe
 
 ## Bugs
 
--   Zooming is eventually limited by numerical accuracy, so only relatively shallow zooms are supported at the moment.
+-   Zooming is eventually limited by numerical accuracy, so only relatively shallow zooms are supported at the moment ([deep zooms](https://www.youtube.com/watch?v=pCpLWbHVNhk) would require calculating the Mandelbrot set using perturbation methods, see [article here](http://www.science.eclipse.co.uk/sft_maths.pdf) and [post with some corrections of types in that article here](https://math.stackexchange.com/questions/939270/perturbation-of-mandelbrot-set-fractal)).
