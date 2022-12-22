@@ -5,7 +5,7 @@ R package allowing some exploration of the Mandelbrot fractal set using
 2. A function to create particular views at given resolution (function `zoom()`)
 3. A function to create animated real-time zooms to a given location (function `mandelbrot()`)
 
-The actual ![Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set) is calculated using optimized Rcpp code that uses OpenMP multithreading and SIMD vectorized operations. The animated real-time zooms make use of the nativeRaster format of the R package [`nara`] (https://github.com/coolbutuseless/nara) to achieve decent framerates.
+The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses OpenMP multithreading and SIMD vectorized operations. The animated real-time zooms make use of the nativeRaster format of the R package [`nara`] (https://github.com/coolbutuseless/nara) to achieve decent framerates.
 
 
 ## Installation
