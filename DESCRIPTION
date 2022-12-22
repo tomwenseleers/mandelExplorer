@@ -7,5 +7,5 @@ Authors: Tom Wenseleers, Wout Wenseleers
 Maintainer: Tom Wenseleers <tom.wenseleers@kuleuven.be>
 Description: Interactive Mandelbrot Set Explorer Powered by Rcpp+OpenMP+Shiny and fast nara nativeRaster graphics for real-time zooms
 License: MIT
-Imports: Rcpp (>= 0.12.10), shiny, grid, grDevices
+Imports: Rcpp (>= 0.12.10), shiny, grid, grDevices, pacman
 LinkingTo: Rcpp, RcppArmadillo
