@@ -96,7 +96,7 @@ The available songs are `i=`
 
 Press escape and type `close(s)` to stop the music. Analogously, you can use argument `png` to point to your custom `png` file with the Christmas or New Year's message of your choice, change `pal` to the colour palette of your liking (choice from `1` to `4`), you can change `res` to change the resolution (e.g. `500L` or `1000L`) and you can change `xlims` and `ylims` (each vectors of 2 numbers) to specify the location you would like to zoom in to. The WAV files are reproduced from <https://www.thewavsite.com/> under the noncommercial use clause of the [Digital Millennium Copyright Act of 1998](http://www.copyright.gov/legislation/dmca.pdf)]. If any artist believes their work has been included in error and would like to see it removed, I will do so upon request.
 
-# Technical details
+## Technical details
 
 The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses [OpenMP multithreading and SIMD vectorized operations](https://stackoverflow.com/questions/48069990/multithreaded-simd-vectorized-mandelbrot-in-r-using-rcpp-openmp) (SIMD optimizations were provided by [Z boson](https://stackoverflow.com/users/2542702/z-boson)). The animated real-time zooms make use of the `nativeRaster` format of the R package `nara` (<https://github.com/coolbutuseless/nara>) to achieve decent framerates. Hence, this package forms a good demonstration to illustrate the use of OpenMP in Rcpp to speed up code and of fast `nativeRaster` graphics to achieve real-time animation at high framerates.
 
