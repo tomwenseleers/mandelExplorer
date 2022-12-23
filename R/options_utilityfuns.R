@@ -71,6 +71,44 @@ y = list(ylims=c(0.10086220543088,0.10086220543102),
          ylims=c(0.23497573912032,0.23497573912128),
          ylims=c(0.044190272396513,0.044190286611419))
 
+# a list of 13 Christmas songs (WAV files from https://www.thewavsite.com/)
+songs = list(wav=system.file("audio", "Feliz Navidad - Jose Feliciano.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "We Wish You A Merry Christmas - The Chipmunks.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "We Wish You A Merry Christmas - Smurfs.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "We Wish You a Merry Christmas - Sesame Street.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Jingle Bells - Winnie the Pooh.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Jingle Bells (techno).wav", package = "mandelExplorer"),
+            wav=system.file("audio", "All I Want for Christmas for Is You - Mariah Carey.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Do They Know It's Christmas - Band Aid.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Happy Christmas (The War is Over) - John Lennon.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Last Christmas - Wham.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Auld Lang Syne - Scottish bagpipes.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Here Comes Santa Claus - Elvis.wav", package = "mandelExplorer"),
+            wav=system.file("audio", "Rockin Around the Christmas Tree - Brenda Lee.wav", package = "mandelExplorer"))
+
+# 16 preset options for Christmas cards with various selection of songs
+# 1 to 7 have a reddish Christmas palette, 8 to 14 have a more icey snowflakey look 
+# and 15 and 16 are more colourful psychedelic options
+presets=list(list(xlims=x[[1]], ylims=y[[1]], pal=1, gamma=1/8, wav=songs[[1]]),
+            list(xlims=x[[14]], ylims=y[[14]], pal=1, gamma=1/20, wav=songs[[2]]),
+            list(xlims=x[[15]], ylims=y[[15]], pal=1, gamma=1/20, wav=songs[[7]]),
+            list(xlims=x[[16]], ylims=y[[16]], pal=1, gamma=1/20, wav=songs[[8]]),
+            list(xlims=x[[9]], ylims=y[[9]], pal=4, gamma=1/20, wav=songs[[9]]),
+            list(xlims=x[[10]], ylims=y[[10]], pal=4, gamma=1/20, wav=songs[[10]]),
+            list(xlims=x[[11]], ylims=y[[11]], pal=4, gamma=1/20, wav=songs[[12]]),
+            
+            list(xlims=x[[4]], ylims=y[[4]], pal=2, gamma=1/15, wav=songs[[2]]),
+            list(xlims=x[[2]], ylims=y[[2]], pal=2, gamma=1/15, wav=songs[[7]]),
+            list(xlims=x[[3]], ylims=y[[3]], pal=2, gamma=1/15, wav=songs[[5]]),
+            list(xlims=x[[5]], ylims=y[[5]], pal=2, gamma=1/15, wav=songs[[6]]),
+            list(xlims=x[[6]], ylims=y[[6]], pal=2, gamma=1/15, wav=songs[[8]]),
+            list(xlims=x[[7]], ylims=y[[7]], pal=2, gamma=1/15, wav=songs[[1]]),
+            list(xlims=x[[12]], ylims=y[[12]], pal=2, gamma=1/20, wav=songs[[1]]),
+            
+            list(xlims=x[[8]], ylims=y[[8]], pal=3, gamma=1/10, wav=songs[[1]]),
+            list(xlims=x[[13]], ylims=y[[13]], pal=3, gamma=1/8, wav=songs[[6]])
+             )
+
 
 ## COUPLE OF UTILITY FUNCTIONS
 
