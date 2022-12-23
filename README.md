@@ -19,7 +19,7 @@ To run within an R session :
 ```{r}
 install.packages("remotes")
 library(remotes)
-remotes::install_github("tomwenseleers/mandelExplorer", build_opts=c("--no-staged-install"))
+remotes::install_github("tomwenseleers/mandelExplorer", upgrade="never")
 library(mandelExplorer)
 ```
 

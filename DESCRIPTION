@@ -9,3 +9,4 @@ Description: Interactive Mandelbrot Set Explorer Powered by Rcpp+OpenMP+Shiny an
 License: MIT
 Imports: Rcpp (>= 0.12.10), shiny, grid, grDevices, pacman, export
 LinkingTo: Rcpp, RcppArmadillo
+StagedInstall: no
