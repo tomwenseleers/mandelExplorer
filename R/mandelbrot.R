@@ -219,5 +219,5 @@ xmascard = function (n=1,
 
 
 # function to play all 16 preset Christmas cards in a row
-jukebox() = function() for (i in (1:16)) { xmascard(i) }
+jukebox() = function() { for (i in (1:16)) { xmascard(i) } }
 
