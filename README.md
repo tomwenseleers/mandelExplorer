@@ -103,3 +103,4 @@ The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandel
 ## Bugs
 
 -   Zooming is eventually limited by numerical accuracy, so only relatively shallow zooms are supported at the moment ([deep zooms](https://www.youtube.com/watch?v=pCpLWbHVNhk) would require calculating the Mandelbrot set using perturbation methods, see [article here](http://www.science.eclipse.co.uk/sft_maths.pdf) and [post with some corrections of typos in that article here](https://math.stackexchange.com/questions/939270/perturbation-of-mandelbrot-set-fractal)).
+-   File any major bugs under issues & give your `sessionInfo()` and details on your system. Currenlty, I only tested this package on Windows. I am not 100% sure about performance on Mac, as the default clang compiler doesn't support OpenMP very well. It's possible the `Makevars` file under `/src` still needs to be modified a bit to get best performance on Mac or Linux systems.
