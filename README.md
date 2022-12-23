@@ -10,7 +10,7 @@ R package allowing some exploration of the Mandelbrot fractal set using
 
 4.  A function to create animated Christmas cards, zooming in to one of 16 pre-set locations, playing an accompanying Christmas song (function `xmascard(i)` with `i` between 1 and 16) and saving each as a Christmas card to be printed if desired
 
-5.  A function to play all 16 animated Christmas cards in a row, accompanied by selected gems like Feliz Navidad by Jose Feliciana, We Wish You a Merry Christmas by The Chipmunks or The Smurfs or All I Want for Christmas Is You by Mariah Carey (function `jukebox()`)
+5.  A function to play all 16 animated Christmas cards in a row, accompanied by selected gems like Feliz Navidad by Jose Feliciano, All I Want for Christmas Is You by Mariah Carey or We Wish You a Merry Christmas by The Chipmunks or The Smurfs (function `jukebox()`). Yes, Belgium doesn't have many famous people, but the little blue guys are among them, in case you didn't know!
 
 ## Installation
 
