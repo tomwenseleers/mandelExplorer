@@ -52,19 +52,19 @@ zoom(xlims=c(-0.766032578179731,-0.766032578179529),
      res=640L)
 ```
 
-Real-time animated zoom to one of 16 randomly selected pre-defined locations `p`, using given palette:
+Real-time animated zoom to one of 16 randomly selected pre-defined locations `p`, using given palette (click to view video):
 
 ```{r}
 p=sample.int(16,1);zoom(xlims=x[[p]], ylims=y[[p]], pal=1);print(p)
 ```
 
-[![Fast real-time zooms](./inst/png/feliz_navidad.png?raw=true)](https://vimeo.com/783419550)
+[![Fast real-time zooms](./inst/png/preset1.png?raw=true)](https://vimeo.com/783419550)
 
 Animated Christmas card showing a real-time Mandelbrot fractal zoom to one of 16 pre-set locations (`p` = number between 1 and 16) & show "Merry Christmas" at the end, whilst playing a fitting Christmas song; the Christmas card is also exported as a PNG image, so you can print it as a Christmas card if desired :
 
-`p=1; xmascard(p)`
+`p=8; xmascard(p)`
 
-![](inst/png/feliz_navidad.png)
+![](inst/png/preset8.png)
 
 Play all 16 pre-set Christmas cards in a row using :
 
