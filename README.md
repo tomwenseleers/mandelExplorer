@@ -80,33 +80,21 @@ You can modify the song played with each Christmas card using argument `wav`, wh
 
 The available songs are `i=`
 
-1 = Feliz Navidad - Jose Feliciano
-
-2 = We Wish You A Merry Christmas - The Chipmunks
-
-3 = We Wish You A Merry Christmas - Smurfs
-
-4 = We Wish You a Merry Christmas - Sesame Street
-
-5 = Jingle Bells - Winnie the Pooh
-
-6 = Jingle Bells (techno version)
-
-7 = All I Want for Christmas for Is You - Mariah Carey
-
-8 = Do They Know It's Christmas - Band Aid
-
-9 = Happy Christmas (The War is Over) - John Lennon
-
-10 = Last Christmas - Wham
-
-11 = Auld Lang Syne - Scottish bagpipes
-
-12 = Here Comes Santa Claus - Elvis
-
+1 = Feliz Navidad - Jose Feliciano\
+2 = We Wish You A Merry Christmas - The Chipmunks\
+3 = We Wish You A Merry Christmas - Smurfs\
+4 = We Wish You a Merry Christmas - Sesame Street\
+5 = Jingle Bells - Winnie the Pooh\
+6 = Jingle Bells (techno version)\
+7 = All I Want for Christmas for Is You - Mariah Carey\
+8 = Do They Know It's Christmas - Band Aid\
+9 = Happy Christmas (The War is Over) - John Lennon\
+10 = Last Christmas - Wham\
+11 = Auld Lang Syne - Scottish bagpipes\
+12 = Here Comes Santa Claus - Elvis\
 13 = Rockin Around the Christmas Tree - Brenda Lee
 
-Analogously, you can use argument `png` to point to your custom `png` file with the Christmas or New Year's message of your choice, change `pal` to the colour palette of your liking (choice from `1` to `4`), you can change `res` to change the resolution (e.g. `500L` or `1000L`) and you can change `xlims` and `ylims` (each vectors of 2 numbers) to specify the location you would like to zoom in to. The WAV files are reproduced from <https://www.thewavsite.com/> under the noncommercial use clause of the [Digital Millennium Copyright Act of 1998](http://www.copyright.gov/legislation/dmca.pdf)]. If any artist believes their work has been included in error and would like to see it removed, I will do so upon request.
+Press escape and type `close(s)` to stop the music. Analogously, you can use argument `png` to point to your custom `png` file with the Christmas or New Year's message of your choice, change `pal` to the colour palette of your liking (choice from `1` to `4`), you can change `res` to change the resolution (e.g. `500L` or `1000L`) and you can change `xlims` and `ylims` (each vectors of 2 numbers) to specify the location you would like to zoom in to. The WAV files are reproduced from <https://www.thewavsite.com/> under the noncommercial use clause of the [Digital Millennium Copyright Act of 1998](http://www.copyright.gov/legislation/dmca.pdf)]. If any artist believes their work has been included in error and would like to see it removed, I will do so upon request.
 
 # Technical details
 
