@@ -8,9 +8,9 @@ R package allowing some exploration of the Mandelbrot fractal set using
 
 3.  A function to create animated real-time zooms to a given location (function `zoom()`)
 
-4.  A function to create animated Christmas cards, zooming in to one of 16 pre-set locations, playing an accompanying Christmas song (function `xmascard(i)` with `i` between 1 and 16) and saving each as a Christmas card to be printed if desired
+4.  A function to create animated Christmas cards, zooming in to one of 96 pre-set locations, playing an accompanying Christmas song (function `xmascard(i)` with `i` between 1 and 96) and saving each as a Christmas card to be printed if desired
 
-5.  A function to play all 16 animated Christmas cards in a row, accompanied by selected gems like Feliz Navidad by Jose Feliciano, All I Want for Christmas Is You by Mariah Carey or We Wish You a Merry Christmas by The Chipmunks or The Smurfs (function `jukebox()`). Yes, Belgium doesn't have many famous people, but the little blue guys are among them, in case you didn't know!
+5.  A function to play all 96 animated Christmas cards in a row in random order, accompanied by selected gems like Feliz Navidad by Jose Feliciano, All I Want for Christmas Is You by Mariah Carey or We Wish You a Merry Christmas by The Chipmunks or The Smurfs (function `jukebox()`). Yes, Belgium doesn't have many famous people, but the little blue guys are among them, in case you didn't know!
 
 ## Installation
 
@@ -47,34 +47,46 @@ For a real-time animated zoom to a particular region (using fast `nativeRaster` 
 ```{r}
 zoom(xlims=c(-0.766032578179731,-0.766032578179529),     
      ylims=c(0.10086220543088,0.10086220543102),      
-     pal=1, # palette: 1 to 4     
-     gamma=1/8,     
+     pal=1, # palette: 1 to 10     
+     gamma=1/8, # gamma value - choose value between ca. 1/20 and 1.5    
      res=640L)
 ```
 
-Real-time animated zoom to one of 73 pre-defined locations `p`, using randomly chosen palette (click to view video):
+Real-time animated zoom to one of 73 pre-defined locations `p`, using the Lava palette nr. 1 (click to view video):
 
 ```{r}
-for (p in 1:73) { print(p);zoom(xlims=x[[p]], ylims=y[[p]], pal=sample.int(4,1)) }
+for (p in 1:73) { print(p);zoom(xlims=x[[p]], ylims=y[[p]], pal=1) }
 ```
 
 [![Fast real-time zooms](./inst/png/preset1.png?raw=true)](https://vimeo.com/783419550)
 
-Animated Christmas card showing a real-time Mandelbrot fractal zoom to one of 16 pre-set locations (`p` = number between 1 and 16) & show "Merry Christmas" at the end, whilst playing a fitting Christmas song; the Christmas card is also exported as a PNG image, so you can print it as a Christmas card if desired :
+Animated Christmas card showing a real-time Mandelbrot fractal zoom to one of 96 pre-set locations (`p` = number between 1 and 96) & show "Merry Christmas" at the end, whilst playing a fitting Christmas song; the Christmas card is also exported as a PNG image, so you can print it as a Christmas card if desired :
 
 `p=8; xmascard(p)`
 
 ![](inst/png/preset8.png)
 
-Play all 16 pre-set Christmas cards in a row using :
+Play all 96 pre-set Christmas cards in a row in random order using :
 
 `jukebox()`
 
-The pre-set locations & palettes look like in the image below :
+The first 16 presets look like in the image below :
 
 ![](inst/png/xmascard_presets.png)
 
-You can modify the song played with each Christmas card using argument `wav`, which allows you to choose one of 13 provided songs `i`, or point to the `wav` file of your choice :
+Presets 17 to 32 use a more psychedelic rainbow palette (`pal=3`) and a higher `gamma` value of `1.5`, and are accompanied by a randomly selected Christmas song (`wav='random'`) :
+
+![](inst/png/xmascard_presets_17_to_32.png)
+
+Presets 33 to 64 use the reddish Lava palette (`pal=1`) and a `gamma` value of `0.1`, and are accompanied by a randomly selected Christmas song (`wav='random'`) :
+
+![](inst/png/xmascard_presets_33_to_64.png)
+
+Finally, presets 65 to 96 use the blueish Ice palette (`pal=2`) and a `gamma` value of `0.1`, and are accompanied by a randomly selected Christmas song (`wav='random'`) :
+
+![](inst/png/xmascard_presets_65_to_96.png)
+
+You can modify the song played with each Christmas card using argument `wav`, which allows you to choose one of 13 provided songs `i`, or point to the `wav` file of your choice (`wav='random'` selects a random song and `wav=""` leaves out the song) :
 
 `p=1; i=1; xmascard(p, wav=songs[[i]])`
 

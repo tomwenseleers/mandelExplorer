@@ -27,19 +27,74 @@ mandelbrot_palette=function(palette, fold = TRUE,
 
 rainbow=c(rgb(0.47,0.11,0.53),rgb(0.27,0.18,0.73),rgb(0.25,0.39,0.81),rgb(0.30,0.57,0.75),rgb(0.39,0.67,0.60),rgb(0.51,0.73,0.44),rgb(0.67,0.74,0.32),rgb(0.81,0.71,0.26),rgb(0.89,0.60,0.22),rgb(0.89,0.39,0.18),rgb(0.86,0.13,0.13))
 
+earthsky = c( # from https://github.com/leamare/mandelbrot-experiment-dlang/blob/main/source/mandel.d
+  rgb(66, 30, 15, maxColorValue = 255),
+  rgb(25, 7, 26, maxColorValue = 255),
+  rgb(9, 1, 47, maxColorValue = 255),
+  rgb(4, 4, 7, maxColorValue = 2553),
+  rgb(0, 7, 10, maxColorValue = 2550),
+  rgb(12, 44, 13, maxColorValue = 2558),
+  rgb(24, 82, 177, maxColorValue = 255),
+  rgb(57, 125, 209, maxColorValue = 255),
+  rgb(134, 181, 229, maxColorValue = 255),
+  rgb(211, 236, 248, maxColorValue = 255),
+  rgb(241, 233, 191, maxColorValue = 255),
+  rgb(248, 201, 95, maxColorValue = 255),
+  rgb(255, 170, 0, maxColorValue = 255),
+  rgb(204, 128, 0, maxColorValue = 255),
+  rgb(153, 87, 0, maxColorValue = 255),
+  rgb(106, 52, 3, maxColorValue = 255)
+)
+
+seashore=c(rgb(0.7909, 0.9961, 0.763),
+           rgb(0.8974, 0.8953, 0.6565),
+           rgb(0.9465, 0.3161, 0.1267),
+           rgb(0.5184, 0.1109, 0.0917),
+           rgb(0.0198, 0.4563, 0.6839),
+           rgb(0.5385, 0.8259, 0.8177))
+
+fire=c(rgb(0, 0, 0),
+       rgb(1, 0, 0),
+       rgb(1, 1, 0),
+       rgb(1, 1, 1),
+       rgb(1, 1, 0),
+       rgb(1, 0, 0))
+
+oceanid=c(rgb(0, 0, 0),
+          rgb(0, 0, 1),
+          rgb(0, 1, 1),
+          rgb(1, 1, 1),
+          rgb(0, 1, 1),
+          rgb(0, 0, 1))
+
+cnfsso=c(rgb(244, 241, 222, maxColorValue=255),
+         rgb(224, 122, 95, maxColorValue=255),
+         rgb(61, 64, 91, maxColorValue=255),
+         rgb(129, 178, 154, maxColorValue=255),
+         rgb(242, 204, 143, maxColorValue=255))
+
+acid=c(rgb(239, 71, 111, maxColorValue=255),
+       rgb(255, 209, 102, maxColorValue=255),
+       rgb(6, 214, 160, maxColorValue=255),
+       rgb(17, 138, 178, maxColorValue=255),
+       rgb(7, 59, 76, maxColorValue=255))
+
 palettes <- list( 
-  Lava = c(
+  Lava = c( # best with gamma=1/8, darker red with gamma=1/20
     grey.colors(1000, start = .3, end = 1),
     colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"), bias=1)(1000), 
     "black"),
-  Heat =  mandelbrot_palette(rev(RColorBrewer::brewer.pal(11, "RdYlBu"))),
-  Rainbow = c(colorRampPalette(rainbow)(1000),rev(colorRampPalette(rainbow)(1000)),"black"),
-  Spectral = mandelbrot_palette(RColorBrewer::brewer.pal(11, "Spectral"))
+  Ice =  mandelbrot_palette(rev(RColorBrewer::brewer.pal(11, "RdYlBu"))), # best with gamma=1/8
+  Rainbow = c(colorRampPalette(rainbow)(1000),rev(colorRampPalette(rainbow)(1000)),"black"), # best with gamma=1/8 , gamma=1.5 gives more psychedelic effect, gamma=0.5 more purple
+  Spectral = mandelbrot_palette(RColorBrewer::brewer.pal(11, "Spectral")), # best with gamma=1/8
+  EarthSky = mandelbrot_palette(colorRampPalette(earthsky)(1000)),  # best with gamma=0.2, with gamma=1 becomes more psychedelic
+  Seashore = mandelbrot_palette(colorRampPalette(seashore)(1000)), # best with gamma=1/3
+  Fire = mandelbrot_palette(colorRampPalette(fire)(1000)), # best with gamma=1/18
+  OceanId = mandelbrot_palette(colorRampPalette(oceanid)(1000)), # best with gamma=1/8
+  Cnfsso = mandelbrot_palette(colorRampPalette(cnfsso)(1000)), # best with gamma=1/8
+  Acid = mandelbrot_palette(colorRampPalette(acid)(1000)) #OK with gamma=1/8, gamma=1.5 gives more psychedelic effect
 )
 
-# see https://github.com/leamare/mandelbrot-experiment-dlang/blob/main/source/mandel.d
-# for some more palettes
-# https://leamare.medium.com/experiment-with-mandelbrot-set-and-d-language-fdda4606ce9b
 
 # a list of 73 cool x and y pairs
 x = list(xlims=c(-0.766032578179731,-0.766032578179529),
@@ -215,9 +270,13 @@ songs = list(wav=system.file("audio", "Feliz Navidad - Jose Feliciano.wav", pack
             wav=system.file("audio", "Here Comes Santa Claus - Elvis.wav", package = "mandelExplorer"),
             wav=system.file("audio", "Rockin Around the Christmas Tree - Brenda Lee.wav", package = "mandelExplorer"))
 
-# 16 preset options for Christmas cards with various selection of songs
+# 96 preset options for Christmas cards with various selections of songs
 # 1 to 7 have a reddish Christmas palette, 8 to 14 have a more icey snowflakey look 
 # and 15 and 16 are more colourful psychedelic options
+# in  addition, there is
+# presets 17-32: 16 colourful presets with pal=3=Rainbow with gamma=1.5 & random songs
+# presets 33-64: 32 reddish presets with pal=1=Lava with gamma=0.1 & random songs
+# presets 65-96: 32 blueish  presets with pal=2=Ice with gamma=0.1 & random songs
 presets=list(list(xlims=x[[1]], ylims=y[[1]], pal=1, gamma=1/8, wav=songs[[1]]),
             list(xlims=x[[14]], ylims=y[[14]], pal=1, gamma=1/20, wav=songs[[2]]),
             list(xlims=x[[15]], ylims=y[[15]], pal=1, gamma=1/20, wav=songs[[7]]),
@@ -235,7 +294,93 @@ presets=list(list(xlims=x[[1]], ylims=y[[1]], pal=1, gamma=1/8, wav=songs[[1]]),
             list(xlims=x[[12]], ylims=y[[12]], pal=2, gamma=1/20, wav=songs[[1]]),
             
             list(xlims=x[[8]], ylims=y[[8]], pal=3, gamma=1/10, wav=songs[[1]]),
-            list(xlims=x[[13]], ylims=y[[13]], pal=3, gamma=1/8, wav=songs[[6]])
+            list(xlims=x[[13]], ylims=y[[13]], pal=3, gamma=1/8, wav=songs[[6]]),
+            
+            # presets 17-32: 16 colourful presets with pal=3=Rainbow with gamma=1.5 & random songs
+            list(xlims=x[[1]], ylims=y[[1]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[13]], ylims=y[[13]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[18]], ylims=y[[18]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[23]], ylims=y[[23]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[29]], ylims=y[[29]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[38]], ylims=y[[38]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[43]], ylims=y[[43]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[44]], ylims=y[[44]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[57]], ylims=y[[57]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[62]], ylims=y[[62]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[64]], ylims=y[[64]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[66]], ylims=y[[66]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[67]], ylims=y[[67]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[68]], ylims=y[[68]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[72]], ylims=y[[72]], pal=3, gamma=1.5, wav="random"),
+            list(xlims=x[[73]], ylims=y[[73]], pal=3, gamma=1.5, wav="random"),
+            
+            # presets 33-64: 32 reddish presets with pal=1=Lava with gamma=0.1 & random songs
+            list(xlims=x[[1]], ylims=y[[1]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[17]], ylims=y[[17]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[19]], ylims=y[[19]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[20]], ylims=y[[20]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[21]], ylims=y[[21]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[22]], ylims=y[[22]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[23]], ylims=y[[23]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[25]], ylims=y[[25]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[27]], ylims=y[[27]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[28]], ylims=y[[28]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[31]], ylims=y[[31]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[32]], ylims=y[[32]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[33]], ylims=y[[33]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[34]], ylims=y[[34]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[38]], ylims=y[[38]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[39]], ylims=y[[39]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[40]], ylims=y[[40]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[45]], ylims=y[[45]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[51]], ylims=y[[51]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[52]], ylims=y[[52]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[53]], ylims=y[[53]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[54]], ylims=y[[54]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[56]], ylims=y[[56]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[57]], ylims=y[[57]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[58]], ylims=y[[58]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[61]], ylims=y[[61]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[62]], ylims=y[[62]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[66]], ylims=y[[66]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[67]], ylims=y[[67]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[69]], ylims=y[[69]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[71]], ylims=y[[71]], pal=1, gamma=0.1, wav="random"),
+            list(xlims=x[[73]], ylims=y[[73]], pal=1, gamma=0.1, wav="random"),
+            
+            # presets 65-96: 32 blueish  presets with pal=2=Ice with gamma=0.1 & random songs
+            list(xlims=x[[2]], ylims=y[[2]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[3]], ylims=y[[3]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[4]], ylims=y[[4]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[5]], ylims=y[[5]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[6]], ylims=y[[6]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[7]], ylims=y[[7]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[12]], ylims=y[[12]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[13]], ylims=y[[13]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[14]], ylims=y[[14]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[15]], ylims=y[[15]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[17]], ylims=y[[17]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[20]], ylims=y[[20]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[21]], ylims=y[[21]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[22]], ylims=y[[22]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[23]], ylims=y[[23]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[25]], ylims=y[[25]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[28]], ylims=y[[28]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[31]], ylims=y[[31]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[38]], ylims=y[[38]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[39]], ylims=y[[39]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[40]], ylims=y[[40]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[50]], ylims=y[[50]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[51]], ylims=y[[51]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[52]], ylims=y[[52]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[54]], ylims=y[[54]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[56]], ylims=y[[56]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[57]], ylims=y[[57]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[58]], ylims=y[[58]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[62]], ylims=y[[62]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[66]], ylims=y[[66]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[67]], ylims=y[[67]], pal=2, gamma=0.1, wav="random"),
+            list(xlims=x[[71]], ylims=y[[71]], pal=2, gamma=0.1, wav="random")
              )
 
 

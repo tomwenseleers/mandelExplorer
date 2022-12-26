@@ -117,17 +117,22 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
 
 
 # function that displays an animated Christmas card consisting of a 
-# Mandelbrot zoom to one of 16 predefined locations followed by the
+# Mandelbrot zoom to one of 96 predefined locations followed by the
 # popping up of a Merry Christmas message with accompanying Christmas song
-# n = 1 preset between 1 and 16
+# n = 1 preset between 1 and 96
 # 1 to 7 have a reddish Christmas palette, 8 to 14 have a more icey snowflakey look 
 # and 15 and 16 are more colourful psychedelic options
+# In addition, there is
+# xmascard()s 17-32: 16 colourful presets with pal=3=Rainbow with gamma=1.5 & random songs
+# xmascard()s 33-64: 32 reddish presets with pal=1=Lava with gamma=0.1 & random songs
+# xmascard()s 65-96: 32 blueish  presets with pal=2=Ice with gamma=0.1 & random songs
 # see presets[[n]] to see what presets are
 # xlims and ylims = custom x & y ranges to override preset values (NA uses presets)
 # pal = if not NA will override preset palette (pal = 1 to 4)
 # res = to override default resolution, e.g. 900L (640x640 if NA)
 # png = png file to show as message at the end (uses Merry Christmas preset if NA)
-# song = songs[[s]] with s between 1 and 13, to override preset song (uses preset if NA)
+# wav = songs[[s]] with s between 1 and 13, to override preset song (uses preset if NA)
+# wav = "random" to select random song
 # Song selection (WAV files from https://www.thewavsite.com/)
 # 1 = Feliz Navidad - Jose Feliciano
 # 2 = We Wish You A Merry Christmas - The Chipmunks
@@ -158,13 +163,14 @@ xmascard = function (n=1,
   
   if (exists("s")) { if (class(s)=="audioInstance") { close(s) }}
   p = presets[[n]]
-  if (!is.na(xlims)) p$xlims=xlims
-  if (!is.na(ylims)) p$ylims=ylims
+  if (!is.na(xlims[[1]])) p$xlims=xlims
+  if (!is.na(ylims[[1]])) p$ylims=ylims
   if (!is.na(pal)) p$pal=pal
   if (!is.na(gamma)) p$gamma=gamma
   if (!is.na(res)) p$res=res else p$res=640L
   if (!is.na(png)) p$png=png else p$png=system.file("png", "merry_xmas.png", package = "mandelExplorer")
   if (!is.na(wav)) p$wav=wav
+  if (p$wav=="random") { p$wav=songs[[sample.int(length(songs), 1)]] } 
   
   # Do animated Mandelbrot zoom
   zoom(xlims=p$xlims, 
@@ -211,10 +217,14 @@ xmascard = function (n=1,
 # xmascard(14) # other snowflakey option with Feliz Navidad by Jose Feliciano at the end
 # xmascard(15) # colourful option with Feliz Navidad by Jose Feliciano at the end
 # xmascard(16) # colourful "into the wormhole" option with techno version of Jingle Bells at the end
+# xmascard()s 17-32: 16 colourful presets with pal=3=Rainbow with gamma=1.5 & random songs
+# xmascard()s 33-64: 32 reddish presets with pal=1=Lava with gamma=0.1 & random songs
+# xmascard()s 65-96: 32 blueish  presets with pal=2=Ice with gamma=0.1 & random songs
 
 # to stop the music at the end execute close(s)
 
 
-# function to play all 16 preset Christmas cards in a row
-jukebox = function(wav=NA) { for (i in (1:16)) { if (is.na(wav)) xmascard(i) else xmascard(i, wav=wav) } }
+# function to play all 96 preset Christmas cards in a row in randomly permuted order
+jukebox = function(wav=NA) { 
+  for (i in (sample(1:96, 96, replace=F))) { if (is.na(wav)) xmascard(i) else xmascard(i, wav=wav) } }
 
