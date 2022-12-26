@@ -296,11 +296,30 @@ adgamma = function (m, nb_iter, subsamp=10, intens=0.4) {
   return(adgamma)
 }
 
-# function to convert matrix to colour raster
+# function to convert matrix to hex colour raster
 mat2rast = function(mat, col) {
   idx = findInterval(mat, seq(0, 1, length.out = length(col)))
   colors = col[idx]
   rastmat = t(matrix(colors, ncol = ncol(mat), nrow = nrow(mat), byrow = TRUE))
   class(rastmat) = "raster"
   return(rastmat)
+}
+
+# function to convert matrix to nativeRaster given a colour palette col
+mat2natrast = function(mat, col) {
+  idx = findInterval(mat, seq(0, 1, length.out = length(col)))
+  colors = col[idx]
+  natrast = nara::raster_to_nr(t(matrix(colors, ncol = ncol(mat), nrow = nrow(mat), byrow = TRUE)))
+  return(natrast)
+}
+
+# alt function to convert matrix to nativeRaster
+# this was somehow slower than function above
+mat2natrast2 = function(mat, col) {
+  idx = findInterval(mat, seq(0, 1, length.out = length(col)))
+  colints = farver::encode_native(col[idx]) # hex colours as integers representing RGBA
+  # colints = nara::colour_to_integer(col[idx]) # this would be 2x slower still
+  natrast = t(matrix(colints, ncol = ncol(mat), nrow = nrow(mat), byrow = TRUE))
+  class(natrast) = "nativeRaster"
+  return(natrast)
 }

@@ -90,10 +90,9 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
     # m = mandelsmoothRcpp(xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], 
     #                     x_res, x_res, 
     #                     nb_iter) 
-    m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5) # histogram equalization
-    m = m^gamma
-    m = mat2rast(m, col=palettes[[pal]]) # convert numeric matrix to raster
-    grid::grid.raster(nara::raster_to_nr(m), interpolate = FALSE) # 0.01s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
+    m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)^gamma # histogram equalization (could be optimized in Rcpp) & custom gamma
+    grid::grid.raster(mat2natrast(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.03s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
+    # grid::grid.raster(mat2natrast2(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.07s - this was slower
     dev.flush()
   }
   
@@ -105,10 +104,8 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
   # m = mandelsmoothRcpp(xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], 
   #                     x_res*2, x_res*2, 
   #                     nb_iter)
-  m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)
-  m = m^gamma
-  m = mat2rast(m, col=palettes[[pal]])
-  grid::grid.raster(nara::raster_to_nr(m), interpolate = FALSE) # 0.01s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
+  m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)^gamma
+  grid::grid.raster(mat2natrast(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.01s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
   dev.flush()
   return(list(xlims=xlims, ylims=ylims))
 }

@@ -112,6 +112,7 @@ IntegerVector mandelRcpp2(double x_min, double x_max, double y_min,  double y_ma
 
 //* smooth version with large escape horizon *//
 //* currently still a bit buggy *//
+//* see also https://leamare.medium.com/experiment-with-mandelbrot-set-and-d-language-fdda4606ce9b for strategy to get smooth shading *//
 // [[Rcpp::export]]
 arma::mat mandelsmoothRcpp(const double x_min, const double x_max, const double y_min, const double y_max,
                      const int res_x, const int res_y, const int nb_iter) {
