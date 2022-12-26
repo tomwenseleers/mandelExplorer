@@ -52,10 +52,10 @@ zoom(xlims=c(-0.766032578179731,-0.766032578179529),
      res=640L)
 ```
 
-Real-time animated zoom to one of 71 pre-defined locations `p`, using randomly chosen palette (click to view video):
+Real-time animated zoom to one of 73 pre-defined locations `p`, using randomly chosen palette (click to view video):
 
 ```{r}
-for (p in 1:71) { print(p);zoom(xlims=x[[p]], ylims=y[[p]], pal=sample.int(4,1)) }
+for (p in 1:73) { print(p);zoom(xlims=x[[p]], ylims=y[[p]], pal=sample.int(4,1)) }
 ```
 
 [![Fast real-time zooms](./inst/png/preset1.png?raw=true)](https://vimeo.com/783419550)

@@ -41,7 +41,7 @@ palettes <- list(
 # for some more palettes
 # https://leamare.medium.com/experiment-with-mandelbrot-set-and-d-language-fdda4606ce9b
 
-# a list of 71 cool x and y pairs
+# a list of 73 cool x and y pairs
 x = list(xlims=c(-0.766032578179731,-0.766032578179529),
          xlims = c(-0.74877, -0.74872),
          xlims = c(0.366371018274633,0.366371033044207),
@@ -116,8 +116,9 @@ x = list(xlims=c(-0.766032578179731,-0.766032578179529),
          xlims=c(0.257404386342656,0.257404573571822),
          xlims=c(-1.39531265058232,-1.39531265017622),
          xlims=c(0.360240420222429,0.360240420452501), # close to https://www.youtube.com/watch?v=pCpLWbHVNhk
-         xlims=c(0.360240420289852,0.360240420290878)
-         )
+         xlims=c(0.360240420289852,0.360240420290878),
+         xlims=c(-1.74999841099374-5E-14,-1.74999841099374+5E-14)+5E-13, # close to https://www.youtube.com/watch?v=zXTpASSd9xE&t=1s
+         c(0.360240443437614363236125244449545308482607807-1E-20,0.360240443437614363236125244449545308482607807+1E-20)) # close to https://www.youtube.com/watch?v=pCpLWbHVNhk
 
 y = list(ylims=c(0.10086220543088,0.10086220543102),
          ylims = c(0.065053, 0.065103),
@@ -193,7 +194,11 @@ y = list(ylims=c(0.10086220543088,0.10086220543102),
          ylims=c(0.00102671869615885,0.00102685911803385),
          ylims=c(0.0182162319482242,0.0182162322528061),
          ylims=c(0.64131307967709,0.64131307983637),
-         ylims=c(0.64131307974935,0.64131307975006))
+         ylims=c(0.64131307974935,0.64131307975006),
+         ylims=c(-1.65712469295418E-15-5E-14,-1.65712469295418E-15+5E-14),
+         ylims=c(-0.64131306106480317486037501517930206657949495-1E-20,-0.64131306106480317486037501517930206657949495+1E-20)
+         
+)
 
 # a list of 13 Christmas songs (WAV files from https://www.thewavsite.com/)
 songs = list(wav=system.file("audio", "Feliz Navidad - Jose Feliciano.wav", package = "mandelExplorer"),

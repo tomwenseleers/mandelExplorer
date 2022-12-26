@@ -115,8 +115,8 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
   
 # example
 # zoom()
-# zoom to 1 of 71 predefined locations, using 1 of 4 randomly chosen palettes
-# for (r in 1:71) { print(r);zoom(xlims=x[[r]], ylims=y[[r]], pal=sample.int(4,1)) }
+# zoom to 1 of 73 predefined locations, using 1 of 4 randomly chosen palettes
+# for (r in 1:73) { print(r);zoom(xlims=x[[r]], ylims=y[[r]], pal=sample.int(4,1)) }
 
 
 # function that displays an animated Christmas card consisting of a 
