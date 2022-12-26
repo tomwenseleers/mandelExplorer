@@ -115,8 +115,8 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
   
 # example
 # zoom()
-# random zoom to 1 of 16 predefined locations & use given palette
-# r=sample.int(16,1);zoom(xlims=x[[r]], ylims=y[[r]], pal=1)
+# zoom to 1 of 71 predefined locations, using 1 of 4 randomly chosen palettes
+# for (r in 1:71) { print(r);zoom(xlims=x[[r]], ylims=y[[r]], pal=sample.int(4,1)) }
 
 
 # function that displays an animated Christmas card consisting of a 
@@ -219,5 +219,5 @@ xmascard = function (n=1,
 
 
 # function to play all 16 preset Christmas cards in a row
-jukebox = function() { for (i in (1:16)) { xmascard(i) } }
+jukebox = function(wav=NA) { for (i in (1:16)) { if (is.na(wav)) xmascard(i) else xmascard(i, wav=wav) } }
 
