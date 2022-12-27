@@ -78,6 +78,7 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
     
     # Set the maximum number of iterations using some heuristic rule
     nb_iter = nrofiterations(xlims)
+    # print(nb_iter)
     
     # Calculate the new x and y limits for this step
     xlims = xlims + (target_xlims - xlims) * (i / n_steps) * speed
@@ -87,9 +88,6 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
     m = matrix(mandelRcpp2(xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], 
                            x_res, y_res, 
                            nb_iter), ncol=x_res)
-    # m = mandelsmoothRcpp(xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], 
-    #                     x_res, x_res, 
-    #                     nb_iter) 
     m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)^gamma # histogram equalization (could be optimized in Rcpp) & custom gamma
     grid::grid.raster(mat2natrast(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.03s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
     # grid::grid.raster(mat2natrast2(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.07s - this was slower
@@ -101,9 +99,6 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),
   m = matrix(mandelRcpp2(xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], 
                          highres, highres, 
                          nb_iter), ncol=highres)
-  # m = mandelsmoothRcpp(xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], 
-  #                     x_res*2, x_res*2, 
-  #                     nb_iter)
   m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)^gamma
   grid::grid.raster(mat2natrast(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.01s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
   dev.flush()
