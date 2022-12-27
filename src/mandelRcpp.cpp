@@ -106,4 +106,7 @@ IntegerVector mandelRcpp2(double x_min, double x_max, double y_min,  double y_ma
   }
   return out;
 }
-        
+  
+
+//* smooth colouring might be worth implementing *//
+//*  cf see also https://leamare.medium.com/experiment-with-mandelbrot-set-and-d-language-fdda4606ce9b for strategy to get smooth shading *//
