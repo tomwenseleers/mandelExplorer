@@ -82,7 +82,7 @@ Presets 33 to 64 use the reddish Lava palette (`pal=1`) and a `gamma` value of `
 
 ![](inst/png/xmascard_presets_33_to_64.png)
 
-Finally, presets 65 to 96 use the blueish Ice palette (`pal=2`) and a `gamma` value of `0.1`, and are accompanied by a randomly selected Christmas song (`wav='random'`) :
+Finally, presets 65 to 96 use the blueish Heat palette (`pal=2`) and a `gamma` value of `0.1`, and are accompanied by a randomly selected Christmas song (`wav='random'`) :
 
 ![](inst/png/xmascard_presets_65_to_96.png)
 

@@ -84,7 +84,7 @@ palettes <- list(
     grey.colors(1000, start = .3, end = 1),
     colorRampPalette(RColorBrewer::brewer.pal(9, "YlOrRd"), bias=1)(1000), 
     "black"),
-  Ice =  mandelbrot_palette(rev(RColorBrewer::brewer.pal(11, "RdYlBu"))), # best with gamma=1/8
+  Heat =  mandelbrot_palette(rev(RColorBrewer::brewer.pal(11, "RdYlBu"))), # best with gamma=1/8
   Rainbow = c(colorRampPalette(rainbow)(1000),rev(colorRampPalette(rainbow)(1000)),"black"), # best with gamma=1/8 , gamma=1.5 gives more psychedelic effect, gamma=0.5 more purple
   Spectral = mandelbrot_palette(RColorBrewer::brewer.pal(11, "Spectral")), # best with gamma=1/8
   EarthSky = mandelbrot_palette(colorRampPalette(earthsky)(1000)),  # best with gamma=0.2, with gamma=1 becomes more psychedelic
@@ -276,7 +276,7 @@ songs = list(wav=system.file("audio", "Feliz Navidad - Jose Feliciano.wav", pack
 # in  addition, there is
 # presets 17-32: 16 colourful presets with pal=3=Rainbow with gamma=1.5 & random songs
 # presets 33-64: 32 reddish presets with pal=1=Lava with gamma=0.1 & random songs
-# presets 65-96: 32 blueish  presets with pal=2=Ice with gamma=0.1 & random songs
+# presets 65-96: 32 blueish  presets with pal=2=Heat with gamma=0.1 & random songs
 presets=list(list(xlims=x[[1]], ylims=y[[1]], pal=1, gamma=1/8, wav=songs[[1]]),
             list(xlims=x[[14]], ylims=y[[14]], pal=1, gamma=1/20, wav=songs[[2]]),
             list(xlims=x[[15]], ylims=y[[15]], pal=1, gamma=1/20, wav=songs[[7]]),
@@ -348,7 +348,7 @@ presets=list(list(xlims=x[[1]], ylims=y[[1]], pal=1, gamma=1/8, wav=songs[[1]]),
             list(xlims=x[[71]], ylims=y[[71]], pal=1, gamma=0.1, wav="random"),
             list(xlims=x[[73]], ylims=y[[73]], pal=1, gamma=0.1, wav="random"),
             
-            # presets 65-96: 32 blueish  presets with pal=2=Ice with gamma=0.1 & random songs
+            # presets 65-96: 32 blueish  presets with pal=2=Heat with gamma=0.1 & random songs
             list(xlims=x[[2]], ylims=y[[2]], pal=2, gamma=0.1, wav="random"),
             list(xlims=x[[3]], ylims=y[[3]], pal=2, gamma=0.1, wav="random"),
             list(xlims=x[[4]], ylims=y[[4]], pal=2, gamma=0.1, wav="random"),
