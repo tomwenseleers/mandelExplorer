@@ -41,7 +41,6 @@ arma::mat mandelRcpp(const double x_min, const double x_max, const double y_min,
 
 
 //* SIMD vectorized version *//
-//* for other SIMD vectorized version see https://www.andrew.cmu.edu/user/mkellogg/15-418/final.html#Performance %//
 #if defined ( __AVX512F__ ) || defined ( __AVX512__ )
 static const int SIMD_SIZE = 64;
 #elif defined ( __AVX2__ )
@@ -107,6 +106,9 @@ IntegerVector mandelRcpp2(double x_min, double x_max, double y_min,  double y_ma
   return out;
 }
   
+  
+
 
 //* smooth colouring might be worth implementing *//
 //*  cf see also https://leamare.medium.com/experiment-with-mandelbrot-set-and-d-language-fdda4606ce9b for strategy to get smooth shading *//
+

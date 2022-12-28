@@ -220,6 +220,12 @@ xmascard = function (n=1,
 
 
 # function to play all 96 preset Christmas cards in a row in randomly permuted order
-jukebox = function(wav=NA) { 
-  for (i in (sample(1:96, 96, replace=F))) { if (is.na(wav)) xmascard(i) else xmascard(i, wav=wav) } }
+jukebox = function(n=1:96, wav=NA) { 
+  rand_perm = sample(1:96, 96, replace=F) # random permutation of 96 presets
+  p = presets[rand_perm]
+  rand_perm_songs = songs[sample(1:13, 13, replace=F)] # random permutation of 13 songs
+  wavs = character(length(n))
+  if (is.na(wav)) suppressWarnings(wavs[1:length(n)] <- rand_perm_songs) else suppressWarnings(wavs[1:length(n)] <- wav)
+  for (i in (1:length(rand_perm))) xmascard(rand_perm[i], wav=wavs[[i]], save=FALSE)
+}
 
