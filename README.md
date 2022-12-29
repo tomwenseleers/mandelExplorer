@@ -118,7 +118,8 @@ The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandel
 
 -   File any major bugs under issues & give your `sessionInfo()` and details on your system. Currenlty, I only tested this package on Windows. I am not 100% sure about performance on Mac or Ubuntu, as the default clang compiler doesn't support OpenMP very well. On Mac, OpenMP can be made to work with [some effort](https://mac.r-project.org/openmp/) though, on [Ubuntu first install OpenMP](https://askubuntu.com/questions/900702/how-to-compiler-openmp-program-using-clang/903982#903982) using
 
-    ```{sudo apt install libomp-dev}
+    ```{bash}
+    sudo apt install libomp-dev
     ```
 
     It's possible the `Makevars` file under `/src` still needs to be modified a bit to get best performance on Mac or Linux systems. Feedback on this is welcome!
