@@ -183,7 +183,8 @@ xmascard = function (n=1,
   # SHOW PNG AT THE END
   if (!is.na(p$png)) {
     suppressWarnings(img <- png::readPNG(p$png))
-    grid::grid.raster(img) }
+    grid::grid.raster(img)
+    dev.flush() }
   
   # EXPORT CHRISTMAS CARD TO FILE
   if (save) { 
@@ -192,8 +193,8 @@ xmascard = function (n=1,
   }
   
   if (!(is.na(p$wav)|p$wav=="")) { audio::wait(s) # wait until song is finished
-                                   close(s) }
-  dev.off() # close graphics window
+                                   close(s) } else { Sys.sleep(5) }
+  # dev.off() # close graphics window
 }
   
 # examples
