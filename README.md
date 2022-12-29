@@ -116,4 +116,9 @@ The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandel
 
 -   Zooming is eventually limited by numerical accuracy, so only relatively shallow zooms are supported at the moment ([deep zooms](https://www.youtube.com/watch?v=pCpLWbHVNhk) would require calculating the Mandelbrot set using perturbation methods, see [article here](http://www.science.eclipse.co.uk/sft_maths.pdf), [post with some corrections of typos in that article here](https://math.stackexchange.com/questions/939270/perturbation-of-mandelbrot-set-fractal) & [article here](https://gbillotey.github.io/Fractalshades-doc/math.html), implemented e.g. in [Fractalshades](https://gbillotey.github.io/Fractalshades-doc/overview.html)).
 
--   File any major bugs under issues & give your `sessionInfo()` and details on your system. Currenlty, I only tested this package on Windows. I am not 100% sure about performance on Mac, as the default clang compiler doesn't support OpenMP very well (though it can be made to work apparently with [some effort](https://mac.r-project.org/openmp/)). It's possible the `Makevars` file under `/src` still needs to be modified a bit to get best performance on Mac or Linux systems. Feedback on this is welcome!
+-   File any major bugs under issues & give your `sessionInfo()` and details on your system. Currenlty, I only tested this package on Windows. I am not 100% sure about performance on Mac or Ubuntu, as the default clang compiler doesn't support OpenMP very well. On Mac, OpenMP can be made to work with [some effort](https://mac.r-project.org/openmp/) though, on [Ubuntu first install OpenMP](https://askubuntu.com/questions/900702/how-to-compiler-openmp-program-using-clang/903982#903982) using
+
+    ```{sudo apt install libomp-dev}
+    ```
+
+    It's possible the `Makevars` file under `/src` still needs to be modified a bit to get best performance on Mac or Linux systems. Feedback on this is welcome!

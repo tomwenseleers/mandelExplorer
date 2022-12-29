@@ -37,8 +37,8 @@ mandelbrot = function(xlims=c(-0.74877,-0.74872),
 # to show animation zooming to particular region of Mandelbrot fractal set
 # xlims & ylims = target final region to zoom in on
 # pal=palette=1-4
-zoom = function(xlims=c(-0.766032578179731,-0.766032578179529), 
-                ylims=c(0.10086220543088,0.10086220543102), 
+zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.769411694947082,-0.769411694946128),
+                ylims=c(0.10086220543088,0.10086220543102),  # c(0.11523600047931,0.11523600047997),  
                 pal=1, # palette: 1 to 4
                 gamma=1/8, # gamma value
                 res=640L # resolution
@@ -191,8 +191,8 @@ xmascard = function (n=1,
               width=4.25, height=4.25, dpi=600)
   }
   
-  audio::wait(s) # wait until song is finished
-  close(s)
+  if (!(is.na(p$wav)|p$wav=="")) { audio::wait(s) # wait until song is finished
+                                   close(s) }
   dev.off() # close graphics window
 }
   
