@@ -128,6 +128,9 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
   # Set the resolution of the plot
   x_res <- y_res <- res
   
+  # GPU OpenCL code
+  code <- code_float()
+  
   # Setup a fast graphics device that can render quickly
   x11(type = 'dbcairo', antialias = 'none', width = 8, height = 8)
   
@@ -148,7 +151,7 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
     # Calculate the Mandelbrot set for these limits
     if (((xlims[2]-xlims[1])>4E-5)&gpu) { # use GPU version at low zoom
       res_dev = gpuEmptMatrix(width, height, type='int')
-      .kernel(src = code_float(), 
+      .kernel(src = code, 
               kernel='mandelbrotOpenCL',
               parms=list(res_dev, width, height, xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], maxiter),
               .globalThreadNum = c(width*height))

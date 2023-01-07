@@ -114,6 +114,8 @@ The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandel
 
 The animated real-time zooms make use of the `nativeRaster` format of the R package `nara` (<https://github.com/coolbutuseless/nara>) to achieve decent framerates. Hence, this package forms a good demonstration to illustrate the use of OpenMP in Rcpp and OpenCL GPU code to speed up code and of fast `nativeRaster` graphics to achieve real-time animation at high framerates in R.
 
+Some further speedups could be gained from also coding the colour histogram equalization in Rcpp or OpenCL, and making the Rcpp or OpenCL routines directly return the `nativeRaster` format, but I didn't want to push things too far.
+
 ## Bugs
 
 -   Zooming is eventually limited by numerical accuracy, so only relatively shallow zooms are supported at the moment ([deep zooms](https://www.youtube.com/watch?v=pCpLWbHVNhk) would require calculating the Mandelbrot set using perturbation methods, see [article here](http://www.science.eclipse.co.uk/sft_maths.pdf), [post with some corrections of typos in that article here](https://math.stackexchange.com/questions/939270/perturbation-of-mandelbrot-set-fractal) & [article here](https://gbillotey.github.io/Fractalshades-doc/math.html), implemented e.g. in [Fractalshades](https://gbillotey.github.io/Fractalshades-doc/overview.html)).
