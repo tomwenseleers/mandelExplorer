@@ -110,7 +110,9 @@ Press escape and type `close(s)` to stop the music. Analogously, you can use arg
 
 ## Technical details
 
-The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses [OpenMP multithreading and SIMD vectorized operations](https://stackoverflow.com/questions/48069990/multithreaded-simd-vectorized-mandelbrot-in-r-using-rcpp-openmp) (SIMD optimizations were provided by [Z boson](https://stackoverflow.com/users/2542702/z-boson)). The animated real-time zooms make use of the `nativeRaster` format of the R package `nara` (<https://github.com/coolbutuseless/nara>) to achieve decent framerates. Hence, this package forms a good demonstration to illustrate the use of OpenMP in Rcpp to speed up code and of fast `nativeRaster` graphics to achieve real-time animation at high framerates.
+The actual [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set "Mandelbrot set") is calculated using optimized Rcpp code that uses [OpenMP multithreading and SIMD vectorized operations](https://stackoverflow.com/questions/48069990/multithreaded-simd-vectorized-mandelbrot-in-r-using-rcpp-openmp) (SIMD optimizations were provided by [Z boson](https://stackoverflow.com/users/2542702/z-boson)). In addition, if option `gpu=TRUE` is used and if you have an NVIDIA graphics card and if have the [NVIDIA CUDA toolkit](https://developer.nvidia.com/cuda-downloads) and the [gpuMagic package](https://www.bioconductor.org/packages/release/bioc/html/gpuMagic.html) installed, an OpenCL GPU version can be used at low zooms (except at high resolutions the performance gain is quite marginal though).
+
+The animated real-time zooms make use of the `nativeRaster` format of the R package `nara` (<https://github.com/coolbutuseless/nara>) to achieve decent framerates. Hence, this package forms a good demonstration to illustrate the use of OpenMP in Rcpp and OpenCL GPU code to speed up code and of fast `nativeRaster` graphics to achieve real-time animation at high framerates in R.
 
 ## Bugs
 
