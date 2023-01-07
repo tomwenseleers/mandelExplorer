@@ -8,14 +8,13 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocMana
 if (!require("gpuMagic", quietly = TRUE)) BiocManager::install("gpuMagic", update=FALSE)
 
 # OpenCL Mandelbrot code using float #### 
-# 3x faster than Rcpp OpenMP+SIMD double version
-# 4444x faster than pure R version, but float instead of double
 code_float = function() { 
 code = "
 kernel void mandelbrotOpenCL(global int* res, 
           global double* width, global double* height, 
           global double* fromX, global double* toX, 
-          global double* fromY, global double* toY) {
+          global double* fromY, global double* toY,
+          global double* maxiter) {
     int id = get_global_id(0);
     int px = id % ((int) width[0]);
     int py = id / ((int) width[0]);
@@ -24,7 +23,8 @@ kernel void mandelbrotOpenCL(global int* res,
     float y0 = fromY[0] + ((double)py) * (toY[0] - fromY[0]) / height[0];
     float x = 0;
     float y = 0;
-    for (iteration = 0; iteration < MAXITER; iteration++) {
+    uint maxit = (uint)maxiter[0];
+    for (iteration = 0; iteration < maxit; iteration++) {
       float xn = x * x - y * y + x0;
       y = 2 * x * y + y0;
       x = xn;
@@ -50,14 +50,14 @@ mandelbrot = function(xlims=c(-0.74877,-0.74872),
     asp <- diff(ylims)/diff(xlims)
     width <- as.double(res)
     height <- as.double(res/asp)
+    maxiter <- as.double(nb_iter)
     
     if (((xlims[2]-xlims[1])>4E-5)&gpu&require("gpuMagic", quietly = TRUE)) { # use GPU version
       setDevice(1)
       res_dev = gpuEmptMatrix(width, height, type='int')
-      code_float2 = gsub("MAXITER", as.character(nb_iter), code_float(), fixed=T)
-      .kernel(src = code_float2, 
+      .kernel(src = code_float(), 
               kernel='mandelbrotOpenCL',
-              parms=list(res_dev, width, height, xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]]),
+              parms=list(res_dev, width, height, xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], maxiter),
               .globalThreadNum = c(width*height))
       res_dev <- download(res_dev)
       m <- matrix(res_dev, nrow=width)
@@ -137,6 +137,7 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
     
     # Set the maximum number of iterations using some heuristic rule
     nb_iter = nrofiterations(xlims)
+    maxiter = as.double(nb_iter)
     
     # print(nb_iter)
     
@@ -147,10 +148,9 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
     # Calculate the Mandelbrot set for these limits
     if (((xlims[2]-xlims[1])>4E-5)&gpu) { # use GPU version at low zoom
       res_dev = gpuEmptMatrix(width, height, type='int')
-      code_float2 = gsub("MAXITER", as.character(nb_iter), code_float(), fixed=T)
-      .kernel(src = code_float2, 
+      .kernel(src = code_float(), 
               kernel='mandelbrotOpenCL',
-              parms=list(res_dev, width, height, xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]]),
+              parms=list(res_dev, width, height, xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], maxiter),
               .globalThreadNum = c(width*height))
       res_dev <- download(res_dev)
       m <- matrix(res_dev, nrow=width)
