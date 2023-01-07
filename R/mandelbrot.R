@@ -4,32 +4,87 @@ mandel = function() shiny::runApp(appDir = system.file("application", package = 
 # to start interactive Shiny-powered Mandelbrot explorer:
 # mandel()
 
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+if (!require("gpuMagic", quietly = TRUE)) BiocManager::install("gpuMagic", update=FALSE)
+
+# OpenCL Mandelbrot code using float #### 
+# 3x faster than Rcpp OpenMP+SIMD double version
+# 4444x faster than pure R version, but float instead of double
+code_float = function() { 
+code = "
+kernel void mandelbrotOpenCL(global int* res, 
+          global double* width, global double* height, 
+          global double* fromX, global double* toX, 
+          global double* fromY, global double* toY) {
+    int id = get_global_id(0);
+    int px = id % ((int) width[0]);
+    int py = id / ((int) width[0]);
+    int iteration;
+    float x0 = fromX[0] + ((double)px) * (toX[0] - fromX[0]) / width[0];
+    float y0 = fromY[0] + ((double)py) * (toY[0] - fromY[0]) / height[0];
+    float x = 0;
+    float y = 0;
+    for (iteration = 0; iteration < MAXITER; iteration++) {
+      float xn = x * x - y * y + x0;
+      y = 2 * x * y + y0;
+      x = xn;
+      if (x * x + y * y > 4.0) {
+        break;
+      }
+    }
+    res[(uint)(width[0] *py  + px)] = iteration;
+}
+";
+return(code)
+} 
+
+
 # provide access to mandelRcpp Rcpp Mandelbrot function, pal=palette=1-4
 mandelbrot = function(xlims=c(-0.74877,-0.74872), 
                       ylims=c(0.065053,0.065103), 
                       res=1920L, 
                       nb_iter=nrofiterations(xlims), 
                      plotit=TRUE, pal=2, 
-                     equalize=TRUE, gamma=1/8) {
+                     equalize=TRUE, gamma=1/8,
+                     gpu=FALSE) { # use GPU version at low zooms if NVIDIA Cuda Toolkit (ttps://developer.nvidia.com/cuda-downloads) & gpuMagic is installed?
     asp <- diff(ylims)/diff(xlims)
+    width <- as.double(res)
+    height <- as.double(res/asp)
+    
+    if (((xlims[2]-xlims[1])>4E-5)&gpu&require("gpuMagic", quietly = TRUE)) { # use GPU version
+      setDevice(1)
+      res_dev = gpuEmptMatrix(width, height, type='int')
+      code_float2 = gsub("MAXITER", as.character(nb_iter), code_float(), fixed=T)
+      .kernel(src = code_float2, 
+              kernel='mandelbrotOpenCL',
+              parms=list(res_dev, width, height, xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]]),
+              .globalThreadNum = c(width*height))
+      res_dev <- download(res_dev)
+      m <- matrix(res_dev, nrow=width)
+      # message("Used GPU version")
+      } else { # use Rcpp OpenMP+SIMD CPU version
     m <- matrix(mandelRcpp2(as.double(xlims[[1]]), as.double(xlims[[2]]), # openmp+SIMD version
                             as.double(ylims[[1]]), as.double(ylims[[2]]), 
                             as.integer(res), 
                             as.integer(res/asp), nb_iter), nrow=as.integer(res))
-    # m <- mandelRcpp(as.double(xlims[[1]]), as.double(xlims[[2]]), # openmp version
+    m[m==0] <- nb_iter
+    # m <- mandelRcpp(as.double(xlims[[1]]), as.double(xlims[[2]]), # openmp only version
     #                 as.double(ylims[[1]]), as.double(ylims[[2]]), 
     #                 as.integer(res), 
     #                 as.integer(res/asp), nb_iter)
+      }
+  
     if (plotit) {
       if (equalize) m <- equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E4) # equalize colours
       par(mar=c(0, 0, 0, 0))
       image(m^gamma, col=palettes[[pal]], asp=asp, axes=F, useRaster=TRUE)
     }
-    return(m)
+    # return(m)
 }
 
 # example
-# mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), pal=2)
+# mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), pal=2, gpu=FALSE) # using Rcpp OpenMP+SIMD CPU version
+# mandelbrot(xlims=c(-0.74877,-0.74872),ylims=c(0.065053,0.065103), pal=2, gpu=TRUE) # using GPU version
 # random mandelbrot from 1 of 16 predefined locations with random palette
 # r=sample.int(16,1);mandelbrot(xlims=x[[r]], ylims=y[[r]], pal=sample.int(4,1))
 
@@ -41,13 +96,17 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
                 ylims=c(0.10086220543088,0.10086220543102),  # c(0.11523600047931,0.11523600047997),  
                 pal=1, # palette: 1 to 4
                 gamma=1/8, # gamma value
-                res=640L # resolution
+                res=640L, # resolution
+                gpu=FALSE # use GPU version at low zooms if NVIDIA Cuda Toolkit (ttps://developer.nvidia.com/cuda-downloads) & gpuMagic is installed?
                 ) {
   require(pacman)
   pacman::p_load_gh("coolbutuseless/nara") # for fast nativeRaster format
   pacman::p_load_gh("coolbutuseless/audio") # to play sound at the end
   pacman::p_load("grid")
   require(grid)
+  width <- height <- as.double(res)
+  if (gpu&!require("gpuMagic", quietly = TRUE)) gpu <- FALSE
+  if (gpu) setDevice(1)
   
   # Set the target x and y limits, which is the region you want to zoom in on
   target_xlims = xlims
@@ -78,6 +137,7 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
     
     # Set the maximum number of iterations using some heuristic rule
     nb_iter = nrofiterations(xlims)
+    
     # print(nb_iter)
     
     # Calculate the new x and y limits for this step
@@ -85,10 +145,25 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
     ylims = ylims + (target_ylims - ylims) * (i / n_steps) * speed
     
     # Calculate the Mandelbrot set for these limits
+    if (((xlims[2]-xlims[1])>4E-5)&gpu) { # use GPU version at low zoom
+      res_dev = gpuEmptMatrix(width, height, type='int')
+      code_float2 = gsub("MAXITER", as.character(nb_iter), code_float(), fixed=T)
+      .kernel(src = code_float2, 
+              kernel='mandelbrotOpenCL',
+              parms=list(res_dev, width, height, xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]]),
+              .globalThreadNum = c(width*height))
+      res_dev <- download(res_dev)
+      m <- matrix(res_dev, nrow=width)
+      # message("Used GPU version")
+    } else { # use Rcpp OpenMP+SIMD CPU version
     m = matrix(mandelRcpp2(xlims[[1]], xlims[[2]], ylims[[1]], ylims[[2]], 
                            x_res, y_res, 
                            nb_iter), ncol=x_res)
-    m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)^gamma # histogram equalization (could be optimized in Rcpp) & custom gamma
+    m[m==0] <- nb_iter
+    }
+    
+    # histogram equalization (could be optimized in Rcpp) & custom gamma
+    m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)^gamma 
     grid::grid.raster(mat2natrast(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.03s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
     # grid::grid.raster(mat2natrast2(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.07s - this was slower
     dev.flush()
@@ -106,7 +181,8 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
 }
   
 # example
-# zoom()
+# zoom(gpu=FALSE) # using Rcpp OpenMP+SIMD version
+# zoom(gpu=TRUE) # using GPU version for low zooms
 # zoom to 1 of 73 predefined locations, using 1 of 4 randomly chosen palettes
 # for (r in 1:73) { print(r);zoom(xlims=x[[r]], ylims=y[[r]], pal=sample.int(4,1)) }
 
@@ -147,7 +223,8 @@ xmascard = function (n=1,
                      xlims=NA, ylims=NA, 
                      pal=NA, gamma=NA, res=NA, png=NA, wav=NA,
                      save=TRUE, # save last frame as PNG "xmascard_n.png" in working directory or desired path?
-                     path=getwd()) { 
+                     path=getwd(),
+                     gpu=FALSE) { # use GPU version at low zooms if NVIDIA Cuda Toolkit (ttps://developer.nvidia.com/cuda-downloads) & gpuMagic is installed?
   require(export)
   require(pacman)
   pacman::p_load_gh("coolbutuseless/nara") # for fast nativeRaster format
@@ -155,6 +232,7 @@ xmascard = function (n=1,
   pacman::p_load("grid")
   require(grid)
   require(audio)
+  if (gpu&!require("gpuMagic", quietly = TRUE)) gpu <- FALSE
   
   if (exists("s")) { if (class(s)=="audioInstance") { close(s) }}
   p = presets[[n]]
@@ -172,7 +250,8 @@ xmascard = function (n=1,
        ylims=p$ylims, 
        pal=p$pal, 
        gamma=p$gamma,
-       res=p$res)
+       res=p$res,
+       gpu=gpu)
   
   # PLAY SONG
   if (!(is.na(p$wav)|p$wav=="")) {
@@ -221,12 +300,12 @@ xmascard = function (n=1,
 
 
 # function to play all 96 preset Christmas cards in a row in randomly permuted order
-jukebox = function(n=1:96, wav=NA) { 
+jukebox = function(n=1:96, wav=NA, gpu=FALSE) { 
   rand_perm = sample(1:96, 96, replace=F) # random permutation of 96 presets
   p = presets[rand_perm]
   rand_perm_songs = songs[sample(1:13, 13, replace=F)] # random permutation of 13 songs
   wavs = character(length(n))
   if (is.na(wav)) suppressWarnings(wavs[1:length(n)] <- rand_perm_songs) else suppressWarnings(wavs[1:length(n)] <- wav)
-  for (i in (1:length(rand_perm))) xmascard(rand_perm[i], wav=wavs[[i]], save=FALSE)
+  for (i in (1:length(rand_perm))) xmascard(rand_perm[i], wav=wavs[[i]], save=FALSE, gpu=gpu)
 }
 
