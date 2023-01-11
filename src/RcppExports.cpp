@@ -11,6 +11,19 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// equalizeC
+arma::vec equalizeC(const arma::vec& y, const arma::vec& rng, int levels);
+RcppExport SEXP _mandelExplorer_equalizeC(SEXP ySEXP, SEXP rngSEXP, SEXP levelsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type rng(rngSEXP);
+    Rcpp::traits::input_parameter< int >::type levels(levelsSEXP);
+    rcpp_result_gen = Rcpp::wrap(equalizeC(y, rng, levels));
+    return rcpp_result_gen;
+END_RCPP
+}
 // mandelRcpp
 arma::mat mandelRcpp(const double x_min, const double x_max, const double y_min, const double y_max, const int res_x, const int res_y, const int nb_iter);
 RcppExport SEXP _mandelExplorer_mandelRcpp(SEXP x_minSEXP, SEXP x_maxSEXP, SEXP y_minSEXP, SEXP y_maxSEXP, SEXP res_xSEXP, SEXP res_ySEXP, SEXP nb_iterSEXP) {
@@ -47,6 +60,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_mandelExplorer_equalizeC", (DL_FUNC) &_mandelExplorer_equalizeC, 3},
     {"_mandelExplorer_mandelRcpp", (DL_FUNC) &_mandelExplorer_mandelRcpp, 7},
     {"_mandelExplorer_mandelRcpp2", (DL_FUNC) &_mandelExplorer_mandelRcpp2, 7},
     {NULL, NULL, 0}

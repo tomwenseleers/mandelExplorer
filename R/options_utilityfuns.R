@@ -389,7 +389,7 @@ presets=list(list(xlims=x[[1]], ylims=y[[1]], pal=1, gamma=1/8, wav=songs[[1]]),
 # auto setting for nr of iterations
 nrofiterations = function (xlims) min(round(500+log10(((4/abs(diff(xlims)))))^5),1E4) # attempt at setting sensible nr of iterations based on zoom level
 
-# scale vector between 0 and 1
+# scale vector or matrix between 0 and 1
 range01 <- function(x){(x - min(x)) / (max(x) - min(x))}
 
 # function to equalize vector y
@@ -414,6 +414,7 @@ equalize <- function(m, rng = c(0, 0.90), levels = 256){
     breaks = seq(rng[1L], rng[2L], length.out = levels + 1L)
     m = .equalize(m, rng, levels, breaks) 
     m = range01(m)*rng[[2L]]
+    # m = equalizeC(m, rng, levels) # Rcpp function not yet working
     if (!is.null(ordims)) dim(m) = ordims
   }
   return(m)

@@ -165,7 +165,7 @@ zoom = function(xlims=c(-0.766032578179731,-0.766032578179529),  # c(-0.76941169
     m[m==0] <- nb_iter
     }
     
-    # histogram equalization (could be optimized in Rcpp) & custom gamma
+    # histogram equalization (could be optimized in Rcpp) & use custom gamma (bit slow, takes 0.07s)
     m = equalizeman(m, nb_iter, rng = c(0, 0.95), levels = 1E5)^gamma 
     grid::grid.raster(mat2natrast(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.03s, see https://github.com/coolbutuseless/nara/blob/main/vignettes/conversion.Rmd
     # grid::grid.raster(mat2natrast2(mat=m, col=palettes[[pal]]), interpolate = FALSE) # 0.07s - this was slower

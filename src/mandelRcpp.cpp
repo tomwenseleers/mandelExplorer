@@ -1,3 +1,5 @@
+//* Calculate Mandelbrot fractal in Rcpp *//
+
 #include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <cmath>
